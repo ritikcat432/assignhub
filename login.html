@@ -3,14 +3,18 @@
 <div class="center"><div class="card login"><h2>Log in</h2><p class="mute">Use your college email to continue.</p>
 <form id="f"><label for="e">Email</label><input id="e" type="email" required placeholder="you@college.edu">
 <label for="p">Password</label><input id="p" type="password" required>
-<p id="err" class="mute" style="color:var(--bad)" role="alert"></p>
-<button class="btn" style="width:100%;margin-top:.6rem">Log in</button></form>
+<p id="err" class="mute" style="color:red" role="alert"></p>
+<button type="submit" class="btn" style="width:100%;margin-top:.6rem">Log in</button></form>
 <div class="hint"><b>Demo accounts</b> (password: demo123)<br>Student: aarav@college.edu<br>Student: priya@college.edu<br>Teacher: meera@college.edu</div>
 <p class="mute" style="text-align:center"><a href="index.html">Back to home</a></p></div></div>
-<script src="styledata.js"></script><script src="auth.js"></script>
+<script src="data.js"></script><script src="auth.js"></script>
 <script>
-document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
- const u=Auth.login(document.getElementById('e').value,document.getElementById('p').value);
- if(!u){document.getElementById('err').textContent='Email or password is incorrect.';return}
- location.href='app.html#/dashboard';});
+document.getElementById('f').addEventListener('submit',function(e){
+ e.preventDefault();
+ var err=document.getElementById('err');
+ if(typeof Auth==='undefined'||typeof DB==='undefined'){err.textContent='Error: data.js or auth.js did not load. Check the file names.';return;}
+ var u=Auth.login(document.getElementById('e').value,document.getElementById('p').value);
+ if(!u){err.textContent='Email or password is incorrect.';return;}
+ location.href='app.html#/dashboard';
+});
 </script></body></html>
